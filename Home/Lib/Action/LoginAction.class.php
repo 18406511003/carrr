@@ -64,6 +64,48 @@
 			}
 	   	}
 
+public function checkReg_qiye(){
+			$username=trim($_POST['name']);
+			$userpwd=trim($_POST['type']);
+			$email=trim($_POST['time']);
+			$truename=trim($_POST['person']);
+			$address=trim($_POST['phone']);
+			$phone=trim($_POST['city']);
+            $phonee=trim($_POST['email']);
+
+			if($_SESSION['verify'] != md5($_POST['verify'])) {
+ 				$this->error('验证码错误！');
+ 			}
+			$user = M('Changzu');
+			$user->name=$username;
+			$user->type=$userpwd;
+			$user->time=$email;
+          
+			$user->person=$truename;
+			$user->phone=$address;
+			$user->city=$phone;
+			$user->email=$phonee;
+			
+           
+			$con = $user->add();
+
+			if($con>0){
+				// session('uid',$id);
+				// session('uname',$username);
+				// session('umoney',30);
+				// session('uheadpic','headpic.jpg');
+				// session('uemail',$email);			
+				// session('upost',1);
+				$this->success('记录成功！','__APP__/Index/index',3);	
+
+			}else{
+				$this->error('失败！请您正确填写！','__APP__/Login/reg',3);
+			}
+	   	}
+
+
+
+
 
 	    	public function yzuser(){
 			$user = M('Users');

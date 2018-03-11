@@ -6,9 +6,7 @@
 			
 			$bclass=M('Bclass');
 			$sclass = M('Sclass');
-
 			
-
 			$pid = trim($_GET['id']);
 			$bdata = array();
 
@@ -35,15 +33,6 @@
 			}
 
 			$this->assign('classData',$bdata);
-			$this->display();
-
-
-
-		}
-		public function depart(){
-
-			$declass = $this->_getDeclass();		
-			$this->assign('dedata',$declass);
 			$this->display();
 		}
 

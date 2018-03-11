@@ -77,6 +77,12 @@
 			return $bdata;
 		}
 
+		protected function _getDeclass($a=0,$b= 9){
+			$declass = M('Departments');
+			$dedata = $declass->limit($a,$b)->select();
+			return $dedata;
+		}
+
 		/* 获取点击量日志 */
 		protected function _getLogs($a=0,$b=10){
 			$log = M('Logs');

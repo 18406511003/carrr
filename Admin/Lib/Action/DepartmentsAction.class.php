@@ -13,6 +13,14 @@ class DepartmentsAction extends PublicAction {
         $this->display();
     }
 
+    public function applyPage(){
+        $changdata = M('Changzu');
+        $chdata =  $changdata->select();
+        $this->assign('hdata',$chdata);
+        $this->display();
+    }
+
+
     function editPage(){
     	$user = M('Departments');
     	$uid = $_GET['id'];

@@ -107,7 +107,7 @@ class FoodsAction extends PublicAction{
     public function evaluate(){
 
     	if(!session('?uid')){
-    		$this->error('您还没有登录!',$_SERVER['root'].'/ms/index.php/Login/login');
+    		$this->error('您还没有登录!',$_SERVER['root'].'/carr/index.php/Login/login');
     		exit;
     	}
 

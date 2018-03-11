@@ -105,20 +105,20 @@
 					</p>
 					<p class="pstyle">价格：
 						<font style="font-size:14px;">
-							<{$data.price}>￥/小时
+							<{$data.price}>元/天
 						<font>
 					</p>
 					<p class="pstyle">优惠：
 						<font style="font-size:14px;">
 							<empty name="data.yprice">
-									<{$data.price}>元/小时
-		                                                	<else /> 	<{$data.yprice}>元/小时
+									<{$data.price}>元/天
+		                                                	<else /> 	<{$data.yprice}>元/天
 		                                                	</empty>
 						<font>
 					</p>
 					<p class="pstyle">状态：
 						<font style="font-size:14px;">
-						<if condition="$data.status eq 1 ">在售
+						<if condition="$data.status eq 1 ">可租赁
 						<else /> 已下架
 						</if>
 						</font>

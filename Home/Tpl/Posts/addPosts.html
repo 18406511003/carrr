@@ -21,7 +21,7 @@
 			window.location.href = '__APP__/Carts/showCarts/';
 		});
 	});
-
+        
 	</script>
 </head>
 
@@ -34,6 +34,19 @@
 				<span></span>
 			</div>
 			<div class="posts_wrap">
+
+  <!--  <a style="color: #9D9D9D"> 院校信息：</a>  <select name="pprovince" id="pprovince" onchange="chg(this)" style="width:118px;" >
+        <option value="-1">请选择</option>
+    </select>   &nbsp; &nbsp;
+
+        <select id = "sschool" style="width:118px;"  name="sschool" >
+            <option value="空">学校</option>
+
+        </select>   &nbsp; &nbsp; &nbsp; 
+ -->
+
+
+
 				<form action="__APP__/Posts/finPosts" method="post">
 			  	<table width="620" border="0" cellpadding="0" cellspacing="0">
 				    	<tr>
@@ -52,8 +65,8 @@
 				      		<td width="237" class="font_explain">&nbsp;</td>
 			       	 	</tr>
 				    	<tr>
-				    	  <td align="right" height="30">您的手机</td>
-				    	  <td width="309">　<{$Think.session.uphone}></td>
+				    	  <td align="right" height="30" width="80">您的手机</td>
+				    	  <td width="280">　<{$Think.session.uphone}></td>
 				    	  <td width="237" class="font_explain">
 				    	  	<a href="__APP__/Ucenter/index/pass" style="text-decoration:none;color:#992222;font-size:13px;">需更换？请点击</a>
 				    	  </td>
@@ -69,26 +82,39 @@
 		        		<tr>
 			      			<td align="right" height="30"><label for="start">预定时间</label></td>
 			      			<td>
-		          				<textarea name="ytime" id="ytime" cols="45" rows="1" style="height:20px; width:300px;resize:none;"></textarea>
+		          				<input type="date" name="ytime" id="ytime" value="2018-03-10" /> 
 		          	      	</td>
+
+
 		          	      	<td class="font_explain">时间请务必以:年/月/日/时(24小时)/分 填写</td>
 		        		</tr>	
 		        		<tr>
-			      			<td align="right" height="30"><label for="start">起点</label></td>
+			      			<td align="right" height="30"><label for="start">取车城市</label></td>
 			      			<td>
-		          				<textarea name="start" id="start" cols="45" rows="1" style="height:20px; width:300px;resize:none;"></textarea>
-		          	      	</td>
+			      				<select name="pprovince" id="pprovince" onchange="chg(this)" style="width:118px;" >
+									<option value="-1">省</option>
+									
+									    </select>
+								 <select id = "start" name="start" style="width:118px;"  name="sschool" >
+								            <option value="空">店面地址</option>
+								        </select>  
+<!-- 		          				<textarea name="start" id="start" cols="45" rows="1" style="height:20px; width:300px;resize:none;"></textarea>
+ -->		          	      	</td>
 		        		</tr>
 		        		<tr>
-			      			<td align="right" height="30"><label for="end">终点</label></td>
+			      			<td align="right" height="30"><label for="end">还车城市</label></td>
 			      			<td>
-		          				<textarea name="end" id="end" cols="45" rows="1" style="height:20px; width:300px;resize:none;"></textarea>
+		          				<select name="province" id="province" onchange="chgg(this)" style="width:118px;" >
+									<option value="-1">省</option>
+									
+									    </select>
+								 <select id = "end" name="end" style="width:118px;"  name="school" >
+								            <option value="空">店面地址</option>
+								        </select>  
+								        <!-- <textarea name="end" id="end" cols="45" rows="1" style="height:20px; width:300px;resize:none;"></textarea> -->
 		          	      	</td>
 		        		</tr>
-		        			
-		        			
-		        			
-		        			
+
 			    		<tr>
 			      			<td align="right" height="30"><label for="userohters">车辆要求</label></td>
 			      			<td>
@@ -105,6 +131,10 @@
 		        			</tr>
 		      		</table>
 				</form>	
+
+
+
+
 			</div>
 		</div>
 		<div class="right">
@@ -113,7 +143,7 @@
 				<tr>
 					<th>名称</th>
 					<th>价格</th>
-					<th>数量</th>
+					<th>天数</th>
 					<th>总计</th>
 				</tr>　　　　　　　　　　　　				
 				<volist name="data" id="vo">
@@ -123,7 +153,7 @@
 						</td>
 						<td>
 							<empty name="vo.yprice">
-									<{$vo.price}>元/小时
+									<{$vo.price}>元/天
 		                                                	<else /> 	<{$vo.yprice}>元
 		                                                	</empty>
 						</td>
@@ -142,4 +172,159 @@
 	</div>
 </body>
 </html>
+
+
+
+
+
+
+ <script>
+        //声明省
+        var pprovinces =["北京","上海","山西","天津"] //直接声明Array
+        //声明市
+        var cities = [
+                ["西站店","北京南站店","西单大悦城店","南苑机场店","北京国际机场店","良乡大学城店"],
+                ["五角场店","上海站店","浦东国际机场店","虹桥机场店","南京西路店","田子坊店"],
+                ["太原南站店","山西农业大学店","大学城店","武宿国际机场店","太原站店"],
+                ["天津站店","天津眼店","大悦城店","虹口区店","滨海新区店",],
+                ["天津大学","南开大学"],
+                                ];
+  
+        var pIndex = -1;
+        var pprovinceEle = document.getElementById("pprovince");
+        var sschoolEle = document.getElementById("start");
+        // var ccollegeEle = document.getElementById("ccollege");
+        //先设置省的值
+        for(var i = 0; i < pprovinces.length; i++) {
+            //声明option.<option value="i">pprovinces[i]</option>
+            var op = new Option(pprovinces[i], i);
+
+            pprovinceEle.options.add(op);
+        }
+
+        function chg(obj) {
+            if(obj.value == -1) {
+                sschoolEle.options.length = 0;
+                ccollegeEle.options.length = 0;
+                return;
+            }
+            var val = obj.value;
+            pIndex = obj.value;
+            var cs = cities[val];
+   
+            sschoolEle.options.length = 0;
+            for(var i = 0; i < cs.length; i++) {
+                var op = new Option(cs[i], cs[i]);
+                sschoolEle.options.add(op);
+            }
+
+        }
+
+
+  var provinces =["北京","上海","山西","天津"] //直接声明Array
+        //声明市
+        var cities = [
+                ["西站店","北京南站店","西单大悦城店","南苑机场店","北京国际机场店","良乡大学城店"],
+                ["五角场店","上海站店","浦东国际机场店","虹桥机场店","南京西路店","田子坊店"],
+                ["太原南站店","山西农业大学店","大学城店","武宿国际机场店","太原站店"],
+                ["天津站店","天津眼店","大悦城店","虹口区店","滨海新区店",],
+                ["天津大学","南开大学"],
+                                ];
+        var pIndex = -1;
+        var provinceEle = document.getElementById("province");
+        var schoolEle = document.getElementById("end");
+        // var ccollegeEle = document.getElementById("ccollege");
+        //先设置省的值
+        for(var i = 0; i < provinces.length; i++) {
+            //声明option.<option value="i">provinces[i]</option>
+            var op = new Option(provinces[i], i);
+
+            provinceEle.options.add(op);
+        }
+
+        function chgg(obj) {
+            if(obj.value == -1) {
+                schoolEle.options.length = 0;
+                ccollegeEle.options.length = 0;
+                return;
+            }
+            var val = obj.value;
+            pIndex = obj.value;
+            var cs = cities[val];
+   
+            schoolEle.options.length = 0;
+            for(var i = 0; i < cs.length; i++) {
+                var op = new Option(cs[i], cs[i]);
+                schoolEle.options.add(op);
+            }
+
+        }
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script type="text/javascript">
+	//声明省
+        var pprovinces =["北京","上海","山西","天津"] //直接声明Array
+        //声明市
+        var cities = [
+                ["西站店","北京南站店","西单大悦城店","南苑机场店","北京国际机场店","良乡大学城店"],
+                ["五角场店","上海站店","浦东国际机场店";"虹桥机场店";"南京西路店";"田子坊店"],
+                ["太原南站店";"山西农业大学店";"大学城店";"武宿国际机场店";"太原站店"],
+                ["天津站店";"天津眼店";"大悦城店";"虹口区店";"滨海新区店";],
+                                ];
+
+            //设置一个省的公共下标
+        var pIndex = -1;
+        var pprovinceEle = document.getElementById("pprovince");
+        var sschoolEle = document.getElementById("sschool");
+        //先设置省的值
+        for(var i = 0; i < pprovinces.length; i++) {
+            //声明option.<option value="i">pprovinces[i]</option>
+            var op = new Option(pprovinces[i], i);
+
+            //添加
+            pprovinceEle.options.add(op);
+        }
+
+        function chg(obj) {
+            if(obj.value == -1) {
+                sschoolEle.options.length = 0;
+                ccollegeEle.options.length = 0;
+                return;
+            }
+            //获取值
+            var val = obj.value;
+            pIndex = obj.value;
+            //获取ctiry
+            var cs = cities[val];
+            //获取默认区
+            var as = ccolleges[val][0];
+            //先清空市
+            sschoolEle.options.length = 0;
+            ccollegeEle.options.length = 0;
+            for(var i = 0; i < cs.length; i++) {
+                var op = new Option(cs[i], cs[i]);
+                sschoolEle.options.add(op);
+            }
+            for(var i = 0; i < as.length; i++) {
+                var op = new Option(as[i], as[i]);
+                ccollegeEle.options.add(op);
+            }
+        }
+
+</script> -->
 <include file="Public:footer"/>

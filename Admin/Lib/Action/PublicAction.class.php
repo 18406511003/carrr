@@ -44,7 +44,10 @@
 
 			return session('?name') && session('?uid');
 		}
-
+        public function _getChangclass($a=0,$b= 9){
+			$changdata = M('Changzu');
+			return $changdata;
+		}
 		
 		/* 用户退出系统 */
 	   	public function logout(){

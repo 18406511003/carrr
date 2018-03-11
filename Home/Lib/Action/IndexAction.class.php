@@ -16,6 +16,10 @@
 			$newfoods = $this->_getNewFoods();		
 			$this->assign('newfoods',$newfoods);
 
+			$declass = $this->_getDeclass();		
+			$this->assign('dedata',$declass);
+
+
 			$logs = $this->_getLogs();
 			$foods = M('Foods');
 
